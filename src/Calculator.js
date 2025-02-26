@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Calculator.css";
+import { evaluate } from "mathjs";
 
 const Calculator = () => {
   const [input, setInput] = useState("0");
@@ -49,7 +50,7 @@ const Calculator = () => {
 
   const handleEqual = () => {
     try {
-      let result = new Function("return " + expression.replace(/÷/g, "/").replace(/×/g, "*"))();
+      let result = evaluate(expression.replace(/÷/g, "/").replace(/×/g, "*"));
       result = parseFloat(result.toFixed(4)); // Ensures precision
       setInput(result.toString());
       setExpression(result.toString());
@@ -59,6 +60,7 @@ const Calculator = () => {
       setExpression("");
     }
   };
+  
   
 
   return (
