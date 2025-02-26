@@ -49,8 +49,8 @@ const Calculator = () => {
 
   const handleEqual = () => {
     try {
-      let result = eval(expression.replace(/÷/g, "/").replace(/×/g, "*"));
-      result = parseFloat(result.toFixed(4));
+      let result = new Function("return " + expression.replace(/÷/g, "/").replace(/×/g, "*"))();
+      result = parseFloat(result.toFixed(4)); // Ensures precision
       setInput(result.toString());
       setExpression(result.toString());
       setEvaluated(true);
@@ -59,6 +59,7 @@ const Calculator = () => {
       setExpression("");
     }
   };
+  
 
   return (
     <div className="container mt-5 text-center">
